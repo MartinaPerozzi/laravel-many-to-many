@@ -41,6 +41,16 @@
                                     class="fa-solid fa-caret-down ms-2 @if ($order == 'DESC') rotate-180 @endif"></i></a>
                         @endif
                     </th>
+                    {{-- TECHONOLOGIES --}}
+                    <th scope="col"><a
+                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Techonologies</a>
+
+                        @if ($sort == 'title')
+                            <a
+                                href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}"><i
+                                    class="fa-solid fa-caret-down ms-2 @if ($order == 'DESC') rotate-180 @endif"></i></a>
+                        @endif
+                    </th>
                     {{-- TYPE --}}
                     <th scope="col">
                         <a
@@ -93,6 +103,13 @@
                     <tr>
                         <th scope="row">{{ $project->id }}</th>
                         <td>{{ $project->title }}</td>
+                        <td>
+                            @forelse($project->technologies as $technology)
+                                <p>{{ $technology->label }}</p>
+                            @empty
+                                <span>-</span>
+                            @endforelse
+                        </td>
                         <td>
                             <span class="badge rounded-pill" style="background-color: {{ $project->type?->color }}">
                                 {{ $project->type?->label }}

@@ -15,10 +15,18 @@ class Project extends Model
     // FILLABLE
     protected $fillable = ['type_id', 'title', 'text', 'image'];
 
-    // RELAZIONE CON TABLE TYPES
+    // RELAZIONI *****************
+    // RELAZIONE CON TABLE TYPES ONE TO MANY
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    // RELAZIONE CON TECHONOLOGIES TYPES MANY TO MANY
+    public function technologies()
+    {
+        // i progetti appartengono a più tecnologie
+        return $this->belongsToMany(Technology::class);
     }
     // ABSTRACT FUNCTION
     public function getAbstract($max = 50)

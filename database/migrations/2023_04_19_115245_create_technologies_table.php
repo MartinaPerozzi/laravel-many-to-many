@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            // con after posso scegliere di metterlo dopo una certa riga nel DB
-            $table->foreignId('type_id')->after('id')->nullable()->constrained();
+        Schema::create('technologies', function (Blueprint $table) {
+            $table->id();
+            $table->string('label', 30);
+            $table->char('color', 7);
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign('projects_type_id_foreign');
-            $table->dropColumn('type_id');
-        });
+        Schema::dropIfExists('technologies');
     }
 };

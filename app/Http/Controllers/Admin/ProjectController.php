@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 // Helper per gli array
@@ -45,8 +46,10 @@ class ProjectController extends Controller
 
         // Mi passo i TYPE
         $types = Type::orderBy('label')->get();
+        // Le tecnologie
+        $technologies = Technology::orderBy('label')->get();
         //  AGGIUNGO LA ROTTA CREATE
-        return view('admin.projects.create', compact('project', 'types'));
+        return view('admin.projects.create', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -101,8 +104,12 @@ class ProjectController extends Controller
     {
         // Passo il TYPES
         $types = Type::orderBy('label')->get();
+        // technologies
+        $technologies = Technology::orderBy('label')->get();
+        //
+        $project_technologies = $project->technologies->pluck('id')->toArray();
 
-        return view('admin.projects.create', compact('project', 'types'));
+        return view('admin.projects.create', compact('project', 'types', 'technologies', 'project_technologies'));
     }
 
     /**

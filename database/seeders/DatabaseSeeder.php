@@ -16,9 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         //Chiama questi file sul SEED
         $this->call([
-            ProjectSeeder::class,
-            UserSeeder::class,
+
             TypeSeeder::class,
+            ProjectSeeder::class,
+            // UserSeeder::class,
+            TechnologySeeder::class,
+            ProjectTechnologySeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

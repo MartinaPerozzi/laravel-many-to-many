@@ -89,6 +89,22 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- TECNOLOGIES --}}
+                        <div class="mt-4">
+                            @foreach ($technologies as $technology)
+                                <label for="technology-{{ $technology->id }}" class="form-label ms-3">
+                                    {{ $technology->label }}
+                                </label>
+                                <input type="checkbox" id="technology-{{ $technology->id }}" name="technologies[]"
+                                    class="form-check-control">
+                            @endforeach
+                            @error('type_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         {{-- Button --}}
                         <div class="align-self-end">
                             <button type="submit" class="btn btn-primary mt-4">
