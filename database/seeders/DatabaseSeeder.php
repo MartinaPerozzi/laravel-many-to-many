@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             TypeSeeder::class,
+            TechnologySeeder::class,
             ProjectSeeder::class,
             // UserSeeder::class,
-            TechnologySeeder::class,
             ProjectTechnologySeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();

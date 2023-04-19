@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class TechnologyController extends Controller
 {
@@ -13,9 +14,14 @@ class TechnologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : 'updated_at';
+        $order = (!empty($order_request = $request->get('order'))) ? $order_request : 'ASC';
+
+        $technologies = Technology::orderBy($sort, $order)->paginate(10)->withQueryString();
+
+        return view('admin.types.index', compact('technologies', 'sort', 'order'));
     }
 
     /**
@@ -25,7 +31,10 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technologies = new Technology();
+
+        return view('admin.types.form', compact('technologies'))
+            ->with('message_content', 'Tecnologia aggiunta con successo');;
     }
 
     /**
@@ -36,7 +45,14 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validation($request->all());
+
+        $technology = new Technology();
+        $technology->fill($data);
+        $technology->save();
+
+        return to_route('admin.types.index', $technology)
+            ->with('message_content', 'Tech creato con successo!');
     }
 
     /**
@@ -58,7 +74,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.types.form', compact('technology'));
     }
 
     /**
@@ -70,7 +86,11 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+        $data = $this->validation($request->all());
+
+        $technology->update($data);
+        return to_route('admin.types.index', $technology)
+            ->with('message_content', 'Tipologia ' . $technology->title . ' modificata con successo');
     }
 
     /**
@@ -81,6 +101,30 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $type_id = $technology->id;
+        $technology->delete();
+        return to_route('admin.types.index')
+            ->with('message_type', 'danger')
+            ->with('message_content', 'Tipologia ' . $technology->title . 'con id ' . $technology->id . ' eliminata con successo.');
+    }
+
+    private function validation($data)
+    {
+        return Validator::make(
+            $data,
+            [
+                'label' => 'required|string|max:30',
+                'color' => 'required|string|size:7'
+            ],
+            [
+                'label.required' => 'Label must be field',
+                'label.string' => 'Label must be a string',
+                'label.max' => 'Label must be a string',
+
+                'color.required' => 'Label must be field',
+                'color.string' => 'Label must be a string',
+                'color.size' => 'Label must have max 7 characters (es. #ffffff)',
+            ]
+        )->validate();
     }
 }

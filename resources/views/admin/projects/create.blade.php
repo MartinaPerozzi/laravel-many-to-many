@@ -90,15 +90,16 @@
                             </div>
                         </div>
                         {{-- TECNOLOGIES --}}
-                        <div class="mt-4">
+                        <div class="mt-4 form-check @error('technologies') is-invalid @enderror">
                             @foreach ($technologies as $technology)
                                 <label for="technology-{{ $technology->id }}" class="form-label ms-3">
                                     {{ $technology->label }}
                                 </label>
-                                <input type="checkbox" id="technology-{{ $technology->id }}" name="technologies[]"
-                                    class="form-check-control">
+                                <input type="checkbox" id="technology-{{ $technology->id }}" value="{{ $technology->id }}"
+                                    name="technologies[]" class="form-check-control"
+                                    @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif>
                             @endforeach
-                            @error('type_id')
+                            @error('technologies')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

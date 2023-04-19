@@ -76,6 +76,10 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Project::generateUniqueSlug($project->title);
         $project->save();
+
+        //salvare i tag delle technologies
+        if (Arr::exists($data, 'technologies')) $project->technologies()->attach($data['technologies']);
+
         return to_route('admin.projects.show', $project)
             ->with('message_type', "success")
             ->with('message-content', "Il progetto con $project->title è stato creato con successo!");;
@@ -138,6 +142,11 @@ class ProjectController extends Controller
         };
 
         $project->fill($data);
+
+        //Se esiste l'array delle tecnologie allora sincronizzali sul DB altrimenti de-sincronizza- (quando ho modificato il post)
+        if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
+        else $project->technologies()->detach();
+
         $project->slug = Project::generateUniqueSlug($project->title);
         $project->save();
 
@@ -176,7 +185,8 @@ class ProjectController extends Controller
                 'title' => 'required|string|max:50',
                 'text' => 'string|max:100',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
-                'type_id' => 'nullable|exists:types,id'
+                'type_id' => 'nullable|exists:types,id',
+                'techonologies' => 'nullable|exists:tags, id'
                 // 'image' => 'nullable|string'
             ],
             [
@@ -191,6 +201,8 @@ class ProjectController extends Controller
                 'image.mimes' => 'The format of the file must be: jpg, png or jpeg',
 
                 'type_id.exists' => 'The Id is not valid',
+
+                'technologies.exists' => 'The Id is not valid',
             ]
         )->validate();
         return $validator;
