@@ -26,6 +26,22 @@ i:not(.fa-caret-down) {
     }
 }
 
+// INDEX PROJECTS BACKOFFICE**********+
+.image-prev-index {
+    max-width: 110px;
+    max-height: 110px;
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        clip-path: polygon(0 0, 100% 2%, 100% 100%, 0% 100%);
+    }
+}
+
+// .table::not() {
+//     vertical-align: middle;
+// }
 
 .form-contain {
     padding: 2rem;

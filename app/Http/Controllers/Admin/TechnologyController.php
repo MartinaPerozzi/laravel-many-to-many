@@ -21,7 +21,7 @@ class TechnologyController extends Controller
 
         $technologies = Technology::orderBy($sort, $order)->paginate(10)->withQueryString();
 
-        return view('admin.types.index', compact('technologies', 'sort', 'order'));
+        return view('admin.technologies.index', compact('technologies', 'sort', 'order'));
     }
 
     /**
@@ -29,11 +29,11 @@ class TechnologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $technologies = new Technology();
+        $technology = new Technology();
 
-        return view('admin.types.form', compact('technologies'))
+        return view('admin.technologies.form', compact('technology'))
             ->with('message_content', 'Tecnologia aggiunta con successo');;
     }
 
@@ -51,7 +51,7 @@ class TechnologyController extends Controller
         $technology->fill($data);
         $technology->save();
 
-        return to_route('admin.types.index', $technology)
+        return to_route('admin.technologies.index', $technology)
             ->with('message_content', 'Tech creato con successo!');
     }
 
@@ -63,7 +63,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        return view('admin.technologies.show', compact('technology'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        return view('admin.types.form', compact('technology'));
+        return view('admin.technologies.form', compact('technology'));
     }
 
     /**
@@ -89,7 +89,7 @@ class TechnologyController extends Controller
         $data = $this->validation($request->all());
 
         $technology->update($data);
-        return to_route('admin.types.index', $technology)
+        return to_route('admin.technologies.index', $technology)
             ->with('message_content', 'Tipologia ' . $technology->title . ' modificata con successo');
     }
 
@@ -103,7 +103,7 @@ class TechnologyController extends Controller
     {
         $type_id = $technology->id;
         $technology->delete();
-        return to_route('admin.types.index')
+        return to_route('admin.technologies.index')
             ->with('message_type', 'danger')
             ->with('message_content', 'Tipologia ' . $technology->title . 'con id ' . $technology->id . ' eliminata con successo.');
     }

@@ -9,6 +9,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 // Helper per gli array
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 // Helper per lo Storage
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -144,6 +145,8 @@ class ProjectController extends Controller
         $project->fill($data);
 
         //Se esiste l'array delle tecnologie allora sincronizzali sul DB altrimenti de-sincronizza- (quando ho modificato il post)
+        // Log::debug($data['technologies']);
+        // die(); DEBUG
         if (Arr::exists($data, 'technologies')) $project->technologies()->sync($data['technologies']);
         else $project->technologies()->detach();
 
@@ -186,7 +189,7 @@ class ProjectController extends Controller
                 'text' => 'string|max:100',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
                 'type_id' => 'nullable|exists:types,id',
-                'techonologies' => 'nullable|exists:tags, id'
+                'technologies' => 'nullable|exists:technologies,id'
                 // 'image' => 'nullable|string'
             ],
             [

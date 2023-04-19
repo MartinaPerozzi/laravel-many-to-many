@@ -46,7 +46,7 @@
                             <label for="text" class="form-label">
                                 Text
                             </label>
-                            <textarea name="text" id="text" class="@error('description') is-invalid @enderror form-control">{{ old('text', $project->text) }}</textarea>
+                            <textarea name="text" id="text" class="@error('text') is-invalid @enderror form-control">{{ old('text', $project->text) }}</textarea>
                             @error('text')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -89,7 +89,7 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- TECNOLOGIES --}}
+                        {{-- TECHNOLOGIES --}}
                         <div class="mt-4 form-check @error('technologies') is-invalid @enderror">
                             @foreach ($technologies as $technology)
                                 <label for="technology-{{ $technology->id }}" class="form-label ms-3">

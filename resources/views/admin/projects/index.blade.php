@@ -3,10 +3,13 @@
 @section('actions')
     <div class="container mt-4 mb-3">
         <a class="btn btn-primary" href="{{ route('admin.projects.create') }}"><i
-                class="fa-solid fa-circle-plus  text-white me-2"></i>Create
+                class="fa-solid fa-circle-plus  text-white me-2"></i>Add a
             new Project</a>
         <a class="btn btn-primary" href="{{ route('admin.types.index') }}"><i
-                class="fa-solid fa-diamond text-white me-2"></i>Types</a>
+                class="fa-solid fa-diamond text-white me-2"></i>Add Types</a>
+
+        <a class="btn btn-primary" href="{{ route('admin.technologies.index') }}"><i
+                class="fa-solid fa-lightbulb text-white me-2"></i>Add Tech</a>
         <a class="btn btn-primary" href="{{ route('admin.projects.trash') }}"><i
                 class="fa-solid fa-trash-can  text-white me-2"></i>Trashcan</a>
 
@@ -17,7 +20,7 @@
         <h1 class="mb-3">Projects</h1>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="table-primary">
                     {{-- ID --}}
                     <th scope="col">
                         <a {{-- Operatore ternario per gestire SORT&ORDER --}}
@@ -28,6 +31,16 @@
                             <a
                                 href="{{ route('admin.projects.index') }}?sort=id&order={{ $sort == 'id' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
                                 <i
+                                    class="fa-solid fa-caret-down ms-2 @if ($order == 'DESC') rotate-180 @endif"></i></a>
+                        @endif
+                    </th>
+                    {{-- IMG --}}
+                    <th scope="col"><a
+                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Image</a>
+
+                        @if ($sort == 'title')
+                            <a
+                                href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}"><i
                                     class="fa-solid fa-caret-down ms-2 @if ($order == 'DESC') rotate-180 @endif"></i></a>
                         @endif
                     </th>
@@ -43,7 +56,7 @@
                     </th>
                     {{-- TECHONOLOGIES --}}
                     <th scope="col"><a
-                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Techonologies</a>
+                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Techs</a>
 
                         @if ($sort == 'title')
                             <a
@@ -102,10 +115,17 @@
                 @forelse ($projects as $project)
                     <tr>
                         <th scope="row">{{ $project->id }}</th>
-                        <td>{{ $project->title }}</td>
+                        <td>
+                            <div class="image-prev-index border p-2 d-flex align-items-center">
+                                <img src="{{ $project->getImageUri() }}" alt="{{ $project->title }}" id="image-prev-i">
+                            </div>
+                        </td>
+                        <td>
+                            <div>{{ $project->title }}</div>
+                        </td>
                         <td>
                             @forelse($project->technologies as $technology)
-                                <p>{{ $technology->label }}</p>
+                                <p class="fw-light fs-6">{{ $technology->label }}</p>
                             @empty
                                 <span>-</span>
                             @endforelse
@@ -116,15 +136,24 @@
                             </span>
                             {{-- @dump($project->type) --}}
                         </td>
-                        <td>{{ $project->getAbstract() }}</td>
+                        <td class="col">{{ $project->getAbstract() }}</td>
                         <td>{{ $project->created_at }}</td>
                         <td>{{ $project->getUpdatedAttribute() }}</td>
-                        <td>
-                            <a href="{{ route('admin.projects.show', $project) }}"><i class="fa-solid fa-eye"></i></a>
-                            <a href="{{ route('admin.projects.edit', $project) }}"><i class="fa-solid fa-pen ms-3"></i></a>
-                            <a type="button" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $project->id }}">
-                                <i class="fa-solid fa-trash-can ms-3 text-primary"></i>
-                            </a>
+                        <td class="text-center">
+                            <div>
+                                <a href="{{ route('admin.projects.show', $project) }}"><i
+                                        class="fa-solid fa-eye mt-2"></i></a>
+                            </div>
+                            <div>
+                                <a href="{{ route('admin.projects.edit', $project) }}"><i
+                                        class="fa-solid fa-pen mt-2"></i></a>
+                            </div>
+                            <div>
+                                <a type="button" data-bs-toggle="modal"
+                                    data-bs-target="#delete-modal-{{ $project->id }}">
+                                    <i class="fa-solid fa-trash-can text-primary mt-2"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
 
