@@ -79,6 +79,7 @@ i:not(.fa-caret-down) {
 .guest-home-cards {
     img {
         height: 300px;
+        object-fit: cover;
 
     }
 }
@@ -86,6 +87,7 @@ i:not(.fa-caret-down) {
 .preview-guest {
     img {
         max-height: 400px;
+        object-fit: cover;
     }
 }
 
@@ -101,6 +103,13 @@ button {
     height: 100px;
     border-radius: 1rem;
     transform: rotate(45deg);
+}
+
+.preview-tech {
+    width: 100px;
+    height: 100px;
+    border-radius: 1rem;
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
 
 .type-pill {

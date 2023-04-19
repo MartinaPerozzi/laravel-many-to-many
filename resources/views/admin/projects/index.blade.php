@@ -36,7 +36,7 @@
                     </th>
                     {{-- IMG --}}
                     <th scope="col"><a
-                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Image</a>
+                            href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">Preview</a>
 
                         @if ($sort == 'title')
                             <a

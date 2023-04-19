@@ -24,7 +24,7 @@
         <div class="card mb-3 p-4" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <div class="preview-type" style="background-color: {{ $technology->color }}">
+                    <div class="preview-tech" style="background-color: {{ $technology->color }}">
                     </div>
                     {{-- <p class="fw-semibold mt-2">
                         {{ $type->color }}

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             // con after posso scegliere di metterlo dopo una certa riga nel DB
-            $table->foreignId('type_id')->after('id')->nullable()->constrained();
+            $table->foreignId('type_id')->after('id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

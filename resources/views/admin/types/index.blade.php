@@ -2,7 +2,8 @@
 
 @section('actions')
     <div class="container mt-4 mb-3">
-        <a class="btn btn-primary" href="{{ route('admin.types.create') }}">Create new Type</a>
+        <a class="btn btn-primary" href="{{ route('admin.types.create') }}"><i
+                class="fa-solid fa-plus text-white me-2"></i>Create new Type</a>
         {{-- <a class="btn btn-primary" href="{{ route('admin.projects.trash') }}">Trashcan</a> --}}
 
     </div>

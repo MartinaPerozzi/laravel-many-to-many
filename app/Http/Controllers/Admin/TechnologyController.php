@@ -101,11 +101,12 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        $type_id = $technology->id;
+        $technology_id = $technology->id;
+        $technology_label = $technology->label;
         $technology->delete();
         return to_route('admin.technologies.index')
             ->with('message_type', 'danger')
-            ->with('message_content', 'Tipologia ' . $technology->title . 'con id ' . $technology->id . ' eliminata con successo.');
+            ->with('message_content', 'Tipologia ' . $technology_label . 'con id ' . $technology_id . ' eliminata con successo.');
     }
 
     private function validation($data)
