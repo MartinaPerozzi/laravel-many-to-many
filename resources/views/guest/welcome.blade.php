@@ -33,7 +33,7 @@
             @endforelse
         </div>
         <div class="mb-4">
-            {{-- {{ $projects->links() }} --}}
+            {{ $projects->links() }}
         </div>
     </div>
 @endsection

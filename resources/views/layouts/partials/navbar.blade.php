@@ -56,10 +56,15 @@
                              @auth
                                  <a class="dropdown-item @if (request()->routeIs('dashboard')) active @endif"
                                      href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                                 {{-- **** --}}
 
-                                 <a class="dropdown-item @if (request()->routeIs('admin.projects*')) active @endif"
-                                     href="{{ route('admin.projects.index') }}">{{ __('Projects') }}</a>
+                                 <a class="dropdown-item @if (request()->routeIs('admin.projects.index', ['is_published' => 1]))  @endif"
+                                     href="{{ route('admin.projects.index', ['is_published' => 1]) }}">{{ __('Projects') }}</a>
 
+                                 <a class="dropdown-item @if (request()->routeIs('admin.projects.index', ['is_published' => 0])) active @endif"
+                                     href="{{ route('admin.projects.index', ['is_published' => 0]) }}">{{ __('Bozze') }}</a>
+
+                                 {{-- **** --}}
                                  <a class="dropdown-item @if (request()->routeIs('admin.types*')) active @endif"
                                      href="{{ route('admin.types.index') }}">{{ __('Types') }}</a>
 

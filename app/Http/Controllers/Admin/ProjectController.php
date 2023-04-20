@@ -27,11 +27,24 @@ class ProjectController extends Controller
         // $projects = Project::paginate(10); con paginazione
         // $projects = Project::orderBy('updated_at')->paginate(10); con ordine ultima modifica
 
+        // Ricavo il parametro- 
+        $is_published = $request->is_published;
+
         // SORT & ORDER
         $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : 'updated_at';
         $order = (!empty($order_request = $request->get('order'))) ? $order_request : 'ASC';
 
-        $projects = Project::orderBy($sort, $order)->paginate(10)->withQueryString();
+        $projects = Project::where('id', '>', 0);
+        // query DINAMICA
+        if (isset($request->is_published)) { // se è presente il parametro is published
+            $projects->where('is_published', '=', $request->is_published); //prendi i progetti dove is published è uguale al parametro is_published passato dalla richiesta->nel nostro caso il link di richiesta che aggiunge nell'url il parametro o is_published=0 se sono bozze o =1 se sono pubblicati.
+        }
+        $projects = $projects->orderBy($sort, $order)->paginate(4)->withQueryString();
+
+
+        // $projects = Project::where('is_published', '=', $is_published)->orderBy($sort, $order)->paginate(4)->withQueryString();
+
+
 
         return view('admin.projects.index', compact('projects', 'sort', 'order'));
     }

@@ -43,8 +43,8 @@ class User extends Authenticatable
     ];
 
     // FUNZIONE MUTATOR
-    protected function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    // protected function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = bcrypt($value);
+    // }
 }
