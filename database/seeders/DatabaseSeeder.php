@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             TechnologySeeder::class,
             ProjectSeeder::class,
-            // UserSeeder::class,
+            UserSeeder::class,
             ProjectTechnologySeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();

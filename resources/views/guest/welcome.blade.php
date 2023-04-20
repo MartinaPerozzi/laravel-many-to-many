@@ -23,7 +23,8 @@
                             @endif
                             <p class="card-text">{{ $project->getAbstract(10) }}</p>
                             {{-- Passaggio del parametro id nell'url --}}
-                            <a href="{{ route('detail') }}?id={{ $project->id }}" class="btn btn-primary">See More</a>
+                            <a href="{{ route('detail') }}?id={{ $project->id }}" class="btn btn-primary"><i
+                                    class="fa-solid fa-eye text-white me-2"></i>See More</a>
                         </div>
                     </div>
                 </div>
@@ -32,7 +33,7 @@
             @endforelse
         </div>
         <div class="mb-4">
-            {{ $projects->links() }}
+            {{-- {{ $projects->links() }} --}}
         </div>
     </div>
 @endsection

@@ -76,6 +76,8 @@ class ProjectController extends Controller
         $project = new Project;
         $project->fill($data);
         $project->slug = Project::generateUniqueSlug($project->title);
+
+        $data['is_published'] = $request->has('is_published') ? 1 : 0;
         $project->save();
 
         //salvare i tag delle technologies
@@ -151,6 +153,8 @@ class ProjectController extends Controller
         else $project->technologies()->detach();
 
         $project->slug = Project::generateUniqueSlug($project->title);
+        // AGGIUNGERE IS_PUBLISHED
+        $data['is_published'] = $request->has('is_published') ? 1 : 0;
         $project->save();
 
         return to_route('admin.projects.show', $project)
@@ -189,7 +193,8 @@ class ProjectController extends Controller
                 'text' => 'string|max:100',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
                 'type_id' => 'nullable|exists:types,id',
-                'technologies' => 'nullable|exists:technologies,id'
+                'technologies' => 'nullable|exists:technologies,id',
+                'is_published' => 'boolean'
                 // 'image' => 'nullable|string'
             ],
             [

@@ -11,12 +11,11 @@ return new class extends Migration
      *
      * @return void
      */
+    // STEP 1 IS_PUBLISHED
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            // con after posso scegliere di metterlo dopo una certa riga nel DB
-            // $table->foreignId('type_id')->after('id')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('type_id')->after('id')->nullable()->constrained()->nullOnDelete();
+            $table->boolean('is_published')->default(0)->after('image');
         });
     }
 
@@ -28,8 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign('projects_type_id_foreign');
-            $table->dropColumn('type_id');
+            $table->dropColumn('is_published');
         });
     }
 };

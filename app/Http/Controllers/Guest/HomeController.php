@@ -12,7 +12,8 @@ class HomeController extends Controller
     // La funzione che era in web.php dove ho sostituito con l'AdminHomeController::class
     public function index()
     {
-        $projects = Project::paginate(12);
+        // $projects = Project::paginate(12);
+        $projects = Project::where('is_published', 1)->orderBy('updated_at', 'DESC')->get();
         return view('guest.welcome', compact('projects'));
     }
 

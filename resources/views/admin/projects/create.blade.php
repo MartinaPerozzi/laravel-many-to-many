@@ -105,6 +105,23 @@
                                 </div>
                             @enderror
                         </div>
+                        {{-- IS_PUBLISHED --}}
+                        <div class="mt-4 form-check @error('is_published') is-invalid @enderror">
+
+                            <label for="is_published" class="form-label ms-3">
+                                Publish
+                            </label>
+                            <input type="checkbox" id="is_published" value="1" name="is_published"
+                                class="form-check-control @error('is_published') is-invalid @enderror"
+                                @checked(old('is_published', $project->is_published))>
+
+                            @error('is_published')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
 
                         {{-- Button --}}
                         <div class="align-self-end">

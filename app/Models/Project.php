@@ -13,7 +13,7 @@ class Project extends Model
 
 
     // FILLABLE
-    protected $fillable = ['type_id', 'title', 'text', 'image'];
+    protected $fillable = ['type_id', 'title', 'text', 'image', 'is_published'];
 
     // RELAZIONI *****************
     // RELAZIONE CON TABLE TYPES ONE TO MANY
