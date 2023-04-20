@@ -28,7 +28,8 @@
 
              <ul class="navbar-nav me-auto">
                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('welcome') }}">{{ __('HomePage') }}</a>
+                     <a class="nav-link @if (request()->routeIs('welcome')) active @endif"
+                         href="{{ route('welcome') }}">{{ __('HomePage') }}</a>
                  </li>
              </ul>
 
@@ -53,11 +54,16 @@
 
                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                              @auth
-                                 <a class="dropdown-item" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                                 <a class="dropdown-item @if (request()->routeIs('dashboard')) active @endif"
+                                     href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
 
-                                 <a class="dropdown-item" href="{{ route('admin.projects.index') }}">{{ __('Projects') }}</a>
-                                 <a class="dropdown-item" href="{{ route('admin.types.index') }}">{{ __('Types') }}</a>
-                                 <a class="dropdown-item"
+                                 <a class="dropdown-item @if (request()->routeIs('admin.projects*')) active @endif"
+                                     href="{{ route('admin.projects.index') }}">{{ __('Projects') }}</a>
+
+                                 <a class="dropdown-item @if (request()->routeIs('admin.types*')) active @endif"
+                                     href="{{ route('admin.types.index') }}">{{ __('Types') }}</a>
+
+                                 <a class="dropdown-item @if (request()->routeIs('admin.technologies*')) active @endif"
                                      href="{{ route('admin.technologies.index') }}">{{ __('Technologies') }}</a>
                              @endauth
                              <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
